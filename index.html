@@ -83,6 +83,26 @@
     }
 
     function showPopup() {
+  const popup = document.getElementById("popup");
+  const closeBtn = document.getElementById("closePopup");
+  const countdown = document.getElementById("countdown");
+
+  popup.classList.remove("hidden");
+  let count = 5;
+  countdown.textContent = count;
+  closeBtn.disabled = true;
+  closeBtn.innerText = "Abrir anúncio";
+
+  const interval = setInterval(() => {
+    count--;
+    countdown.textContent = count;
+    if (count === 0) {
+      clearInterval(interval);
+      closeBtn.disabled = false;
+      closeBtn.innerText = "Abrir anúncio";
+    }
+  }, 1000);
+}
       const popup = document.getElementById("popup");
       const closeBtn = document.getElementById("closePopup");
       let countdown = document.getElementById("countdown");
