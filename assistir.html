@@ -1,37 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Assista Grátis</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assistir Grátis</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      color: #fff;
+    }
+
+    .desc {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 1em;
+      color: #ccc;
+    }
+
+    .links {
+      margin: 20px 0;
+    }
+
+    .links a {
+      display: inline-block;
+      background-color: #00c853;
+      color: #fff;
+      padding: 12px 20px;
+      margin: 8px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .banner {
+      border: 2px dashed #888;
+      margin: 20px auto;
+      padding: 30px;
+      max-width: 500px;
+      color: #aaa;
+    }
+
+    .extra {
+      margin-top: 30px;
+    }
+
+    .extra a {
+      color: #4dd0e1;
+      text-decoration: none;
+    }
+  </style>
 </head>
-<body class="dark-bg">
-  <div class="container">
-    <h1 id="main-title">Assista Grátis!</h1>
-    <h2 id="filme-title">Carregando título...</h2>
-    <p>Disponível para Android, iPhone e Smart TV. Aproveite enquanto está no ar!</p>
+<body>
+  <h1>Assista Grátis!</h1>
+  <h2 id="titulo">Carregando título...</h2>
+  <p class="desc">Disponível para Android, iPhone e Smart TV. Aproveite enquanto está no ar!</p>
 
-    <div class="cta-buttons">
-      <a class="btn btn-android" href="https://links.unitvnet.app/IAFLDMW" target="_blank">📲 Assistir grátis no Android</a>
-      <a class="btn btn-whatsapp" href="https://wa.me/message/3IY74MCWLWN2B1" target="_blank">💬 Quero assistir no iPhone / TV</a>
-    </div>
+  <div class="links">
+    <a href="https://links.unitvnet.app/IAFLDMW" target="_blank">📱 Assistir grátis no Android</a>
+    <a href="https://wa.me/message/3IY74MCWLWN2B1" target="_blank">💬 Quero assistir no iPhone / TV</a>
+  </div>
 
-    <div class="ads-banner">[ Espaço para Anúncio Google / Adsterra ]</div>
+  <div class="banner">
+    [ Espaço para Anúncio Google / Adsterra ]
+  </div>
 
-    <hr />
-    <h3>🌟 Conheça também:</h3>
-    <ul class="extra-projects">
-      <li><a href="https://afroinsta.online" target="_blank">AfroInsta — Baixar vídeos do Instagram sem marca d’água</a></li>
+  <div class="extra">
+    <h3>✨ Conheça também:</h3>
+    <ul style="list-style:none; padding: 0;">
+      <li><a href="https://awinsta.online" target="_blank">AfroInsta — Baixar vídeos do Instagram sem marca d'água</a></li>
       <li><a href="https://afrowallpapers.site" target="_blank">AfroWallpapers — Fundos de tela afrofuturistas</a></li>
     </ul>
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const nome = params.get("nome");
-    if (nome) {
-      document.getElementById("filme-title").innerText = `Assista ${nome} grátis!`;
+    const title = params.get("title");
+    if (title) {
+      document.getElementById("titulo").innerText = title;
     }
   </script>
 </body>
