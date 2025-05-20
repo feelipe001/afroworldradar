@@ -1,131 +1,116 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Afroworld Radar</title>
   <style>
     body {
-      background-color: #111;
-      color: #fff;
       font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
       margin: 0;
       padding: 0;
     }
     header {
-      background-color: #f04c3a;
       text-align: center;
-      padding: 20px;
-    }
-    .logo {
-      max-width: 100px;
-      border-radius: 50%;
-    }
-    #search-section, #top10-section {
-      padding: 20px;
-      text-align: center;
+      background: #f44336;
+      padding: 20px 10px;
     }
     input[type="text"] {
-      padding: 10px;
       width: 80%;
-      max-width: 400px;
-      border-radius: 5px;
+      padding: 12px;
+      font-size: 16px;
       border: none;
+      border-radius: 5px;
       margin-bottom: 10px;
     }
     button {
-      padding: 10px 20px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #4CAF50;
+      color: white;
       border: none;
-      background-color: #28a745;
-      color: #fff;
       border-radius: 5px;
-      cursor: pointer;
     }
-    .movie {
-      background-color: #222;
-      margin: 10px;
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
       padding: 10px;
-      border-radius: 8px;
-      display: inline-block;
-      width: 200px;
-      vertical-align: top;
     }
-    .movie img {
-      max-width: 100%;
-      border-radius: 5px;
+    .card {
+      width: 30%;
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
     }
-    .movie-title {
-      font-weight: bold;
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px 10px 0 0;
+    }
+    .card button {
       margin: 10px 0;
+      width: 90%;
+      background: #ff5722;
     }
-    .watch-btn {
-      display: block;
-      background-color: #f04c3a;
-      color: #fff;
-      padding: 8px;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-top: 5px;
+    @media (max-width: 600px) {
+      .card {
+        width: 30%;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logo Afroworld" class="logo">
     <h1>Afroworld Radar</h1>
     <p>Busque por filmes, séries ou doramas:</p>
+    <input type="text" id="searchInput" placeholder="Digite o nome do filme..." />
+    <button onclick="search()">Buscar</button>
   </header>
 
-  <section id="search-section">
-    <input type="text" id="searchInput" placeholder="Digite o nome do filme...">
-    <button onclick="searchMovie()">Buscar</button>
-    <div id="search-results"></div>
-  </section>
+  <h2 style="text-align:center; margin: 15px 0;">Top 10 Filmes</h2>
+  <div id="top10" class="grid"></div>
 
-  <section id="top10-section">
-    <h2>Top 10 Filmes</h2>
-    <div id="top10-results"></div>
-  </section>
+  <h2 style="text-align:center; margin: 15px 0;">Resultados</h2>
+  <div id="results" class="grid"></div>
 
   <script>
-    const apiKey = 'f32553954ea667a78ba68f4d826126a2';
+    const top10 = [
+      { title: "Minecraft", img: "https://image.tmdb.org/t/p/w300/6IvjNfD1h7x7k6q2FheMfwxqHoh.jpg" },
+      { title: "Bad Boys", img: "https://image.tmdb.org/t/p/w300/szQ29cS8XogkVQd0UGGSi1wBszA.jpg" },
+      { title: "Venom", img: "https://image.tmdb.org/t/p/w300/qKkFk9HELmABpcPoc1HHZGIxQ5a.jpg" }
+    ];
 
-    async function searchMovie() {
-      const query = document.getElementById('searchInput').value;
-      const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&query=${encodeURIComponent(query)}`);
-      const data = await response.json();
-      const resultsDiv = document.getElementById('search-results');
-      resultsDiv.innerHTML = '';
-      data.results.slice(0, 5).forEach(movie => {
-        resultsDiv.innerHTML += `
-          <div class="movie">
-            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-            <div class="movie-title">${movie.title}</div>
-            <div>${movie.overview.substring(0, 100)}...</div>
-            <a class="watch-btn" href="assistir.html?title=${encodeURIComponent(movie.title)}">Assista</a>
-          </div>
+    function renderGrid(data, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${item.img}" alt="${item.title}" />
+          <button onclick="watch('${item.title}')">Assistir</button>
         `;
+        container.appendChild(card);
       });
     }
 
-    async function getTop10() {
-      const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`);
-      const data = await response.json();
-      const top10Div = document.getElementById('top10-results');
-      top10Div.innerHTML = '';
-      data.results.slice(0, 10).forEach(movie => {
-        top10Div.innerHTML += `
-          <div class="movie">
-            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-            <div class="movie-title">${movie.title}</div>
-            <a class="watch-btn" href="assistir.html?title=${encodeURIComponent(movie.title)}">Assista</a>
-          </div>
-        `;
-      });
+    function search() {
+      const term = document.getElementById("searchInput").value;
+      if (term.trim() === "") return alert("Digite algo");
+      renderGrid(top10, "results"); // substitua por resultado real futuramente
     }
 
-    window.onload = getTop10;
+    function watch(title) {
+      localStorage.setItem("movieTitle", title);
+      window.location.href = "assistir.html";
+    }
+
+    renderGrid(top10, "top10");
   </script>
 </body>
 </html>
