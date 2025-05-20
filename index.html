@@ -34,7 +34,7 @@
     <div class="popup-content">
       <h3>Desbloqueie o conteúdo</h3>
       <p>Aguardando <span id="countdown">5</span> segundos...</p>
-      <button id="closePopup" disabled onclick="closePopup()">Abrir anúncio</button>
+      <button id="closePopup" onclick="closePopup()" disabled onclick="closePopup()">Abrir anúncio</button>
     </div>
   </div>
 
@@ -91,17 +91,22 @@
   let count = 5;
   countdown.textContent = count;
   closeBtn.disabled = true;
-  closeBtn.innerText = "Abrir anúncio";
+  closeBtn.innerText = "Abrir radar";
 
   const interval = setInterval(() => {
     count--;
     countdown.textContent = count;
-    if (count === 0) {
+    if (count <= 0) {
       clearInterval(interval);
       closeBtn.disabled = false;
-      closeBtn.innerText = "Abrir anúncio";
+      closeBtn.innerText = "Abrir radar";
     }
   }, 1000);
+}
+
+function closePopup() {
+  window.open("https://filmeradar.online", "_blank");
+  window.location.href = "ads.html";
 }
       const popup = document.getElementById("popup");
       const closeBtn = document.getElementById("closePopup");
