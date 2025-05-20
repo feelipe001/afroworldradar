@@ -57,23 +57,6 @@
       width: 90%;
       background: #ff5722;
     }
-    .info {
-      background: #222;
-      padding: 15px;
-      margin: 20px;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    .info h3 {
-      margin-top: 0;
-    }
-    footer {
-      text-align: center;
-      padding: 15px;
-      background: #000;
-      font-size: 14px;
-      color: #aaa;
-    }
     @media (max-width: 600px) {
       .card {
         width: 30%;
@@ -89,22 +72,11 @@
     <button onclick="search()">Buscar</button>
   </header>
 
-  <div class="info">
-    <h3>🔍 Como encontrar o nome do filme no Instagram:</h3>
-    <ul>
-      <li>📝 O nome do filme está quase sempre <strong>na legenda</strong> do vídeo.</li>
-      <li>📌 Ou <strong>fixado no primeiro comentário</strong> da postagem.</li>
-      <li>🖥️ Copie o nome e cole na busca acima para ver onde assistir.</li>
-    </ul>
-  </div>
-
   <h2 style="text-align:center; margin: 15px 0;">Top 10 Filmes</h2>
   <div id="top10" class="grid"></div>
 
   <h2 style="text-align:center; margin: 15px 0;">Resultados</h2>
   <div id="results" class="grid"></div>
-
-  <footer>© Todos os direitos reservados - Afroworld</footer>
 
   <script>
     const top10 = [
@@ -119,10 +91,10 @@
       data.forEach(item => {
         const card = document.createElement("div");
         card.className = "card";
-        card.innerHTML = `
+        card.innerHTML = 
           <img src="${item.img}" alt="${item.title}" />
           <button onclick="watch('${item.title}')">Assistir</button>
-        `;
+        ;
         container.appendChild(card);
       });
     }
@@ -142,3 +114,5 @@
   </script>
 </body>
 </html>
+
+
