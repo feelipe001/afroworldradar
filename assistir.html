@@ -30,6 +30,22 @@
       width: 90%;
       max-width: 300px;
     }
+    .descricao {
+      margin: 30px auto;
+      width: 90%;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .btn-whatsapp {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #25D366;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
@@ -39,6 +55,13 @@
 
   <div class="ad-space">
     [ Espaço para Anúncio Google / Adsterra ]
+  </div>
+
+  <div class="descricao">
+    <p>📲 O download será iniciado para Android.<br>
+    Caso esteja usando iPhone ou Smart TV, <strong>feche o download</strong> e clique no botão abaixo para continuar:</p>
+    
+    <a href="https://wa.me/message/3IY74MCWLWN2B1" class="btn-whatsapp">📺 Assistir no iPhone / TV</a>
   </div>
 
   <script>
@@ -52,7 +75,7 @@
       countdown.textContent = seconds;
       if (seconds === 0) {
         clearInterval(timer);
-        window.location.href = "https://links.unitvnet.app/IAFLDMW"; // URL de conversão
+        window.location.href = "https://links.unitvnet.app/IAFLDMW"; // Android: redirecionamento para UnitTV
       }
     }, 1000);
   </script>
