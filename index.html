@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Afroworld Radar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Afroworld Radar 🎬</h1>
+    <p>Busque por filmes, séries ou doramas:</p>
+    <input type="text" id="searchInput" placeholder="Digite o nome do filme..." />
+    <button onclick="searchMovie()">Buscar</button>
+
+    <div id="loading" class="hidden">Carregando resultados... Aguarde 7 segundos</div>
+    <div id="results" class="hidden"></div>
+  </div>
+
+  <script>
+    const apiKey = 'f32553954ea667a78ba68f4d826126a2';
+
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function searchMovie() {
+      const query = document.getElementById('searchInput').value;
+      if (!query) return alert("Digite algo!");
+
+      document.getElementById('results').classList.add('hidden');
+      document.getElementById('loading').classList.remove('hidden');
+
+      await delay(7000); // Delay de 7 segundos
+
+      const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&query=${encodeURIComponent(query)}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      document.getElementById('loading').classList.add('hidden');
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+      resultsDiv.classList.remove('hidden');
+
+      if (!data.results || data.results.length === 0) {
+        resultsDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+        return;
+      }
+
+      data.results.forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'movie-card';
+        card.innerHTML = `
+          <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}" />
+          <h3>${movie.title}</h3>
+          <p>${movie.overview || "Sem sinopse disponível"}</p>
+          <p><strong>Nota:</strong> ${movie.vote_average}</p>
+          <p><strong>Lançamento:</strong> ${movie.release_date}</p>
+        `;
+        resultsDiv.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>

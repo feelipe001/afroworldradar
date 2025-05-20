@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.container {
+  padding: 20px;
+}
+input, button {
+  padding: 10px;
+  margin: 10px;
+  font-size: 1rem;
+}
+#results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.movie-card {
+  width: 250px;
+  margin: 10px;
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: left;
+}
+.movie-card img {
+  width: 100%;
+  border-radius: 5px;
+}
+.hidden {
+  display: none;
+}
