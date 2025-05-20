@@ -9,6 +9,18 @@
 </head>
 <body>
   <div class="container">
+    <section class="tutorial">
+      <h2>🔍 Como encontrar o nome do filme antes de pesquisar?</h2>
+      <p>Muita gente vê o vídeo e já sai pesquisando. Mas o nome do filme está quase sempre:</p>
+      <ul>
+        <li>📌 Nos comentários fixados</li>
+        <li>📌 Na legenda da postagem</li>
+      </ul>
+      <div class="tutorial-images">
+        <img src="tutorial_img1.jpeg" alt="Exemplo de comentário com nome do filme">
+        <img src="tutorial_img2.jpeg" alt="Exemplo de legenda com nome do filme">
+      </div>
+    </section>
     <h1>Afroworld Radar 🎬</h1>
     <p>Busque por filmes, séries ou doramas:</p>
     <input type="text" id="searchInput" placeholder="Digite o nome do filme..." />
@@ -58,7 +70,7 @@
       data.results.forEach(movie => {
         const card = document.createElement('div');
         card.className = 'movie-card';
-        card.innerHTML = `
+        card.innerHTML = `<button class="watch-btn" onclick="window.location.href='assistir.html?nome=${encodeURIComponent(movie.title)}'">▶️ Assistir</button>` + 
           <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}" />
           <h3>${movie.title}</h3>
           <p>${movie.overview || "Sem sinopse disponível"}</p>
@@ -73,14 +85,14 @@
     function showPopup() {
       const popup = document.getElementById("popup");
       const closeBtn = document.getElementById("closePopup");
-      const countdown = document.getElementById("countdown");
+      let countdown = document.getElementById("countdown");
 
       popup.classList.remove("hidden");
       let count = 5;
       countdown.innerText = count;
       closeBtn.disabled = true;
 
-      const interval = setInterval(() => {
+      let interval = setInterval(() => {
         count--;
         countdown.innerText = count;
         if (count === 0) {
@@ -92,8 +104,9 @@
     }
 
     function closePopup() {
-      document.getElementById("popup").classList.add("hidden");
-    }
+  document.getElementById("popup").classList.add("hidden");
+  window.open("https://filmeradar.online?anuncio=true", "_blank");
+}
   </script>
 </body>
 </html>
