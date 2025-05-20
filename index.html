@@ -57,18 +57,22 @@
       width: 90%;
       background: #ff5722;
     }
-    .instrucoes {
-      max-width: 90%;
-      margin: 20px auto;
-      background-color: #1e1e1e;
-      border-radius: 8px;
+    .info-box {
+      background: #222;
       padding: 15px;
-      font-size: 14px;
-      line-height: 1.5;
-      color: #ccc;
+      margin: 10px;
+      border-radius: 10px;
     }
-    .instrucoes strong {
-      color: #fff;
+    .info-box ul {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #aaa;
+      background: #000;
     }
     @media (max-width: 600px) {
       .card {
@@ -85,12 +89,12 @@
     <button onclick="search()">Buscar</button>
   </header>
 
-  <div class="instrucoes">
-    <p><strong>🔎 Como encontrar o nome do filme no Instagram:</strong></p>
-    <ul style="text-align: left; padding-left: 20px;">
+  <div class="info-box">
+    <strong>🔍 Como encontrar o nome do filme no Instagram:</strong>
+    <ul>
       <li>📝 O nome do filme está quase sempre <strong>na legenda</strong> do vídeo;</li>
       <li>📌 Ou <strong>fixado no primeiro comentário</strong> da postagem;</li>
-      <li>📺 Copie o nome e cole na busca acima para ver onde assistir.</li>
+      <li>🖥️ Copie o nome e cole na busca acima para ver onde assistir.</li>
     </ul>
   </div>
 
@@ -100,11 +104,24 @@
   <h2 style="text-align:center; margin: 15px 0;">Resultados</h2>
   <div id="results" class="grid"></div>
 
+  <footer>
+    © Todos os direitos reservados - Afroworld
+  </footer>
+
   <script>
     const top10 = [
-      { title: "Minecraft", img: "https://image.tmdb.org/t/p/w300/6IvjNfD1h7x7k6q2FheMfwxqHoh.jpg" },
-      { title: "Bad Boys", img: "https://image.tmdb.org/t/p/w300/szQ29cS8XogkVQd0UGGSi1wBszA.jpg" },
-      { title: "Venom", img: "https://image.tmdb.org/t/p/w300/qKkFk9HELmABpcPoc1HHZGIxQ5a.jpg" }
+      {
+        title: "Minecraft",
+        img: "https://image.tmdb.org/t/p/w300/6IvjNfD1h7x7k6q2FheMfwxqHoh.jpg"
+      },
+      {
+        title: "Bad Boys",
+        img: "https://image.tmdb.org/t/p/w300/szQ29cS8XogkVQd0UGGSi1wBszA.jpg"
+      },
+      {
+        title: "Venom",
+        img: "https://image.tmdb.org/t/p/w300/qKkFk9HELmABpcPoc1HHZGIxQ5a.jpg"
+      }
     ];
 
     function renderGrid(data, containerId) {
@@ -124,7 +141,9 @@
     function search() {
       const term = document.getElementById("searchInput").value;
       if (term.trim() === "") return alert("Digite algo");
-      renderGrid(top10, "results"); // substitua por resultado real futuramente
+      
+      // Em produção, aqui faria uma chamada real à API
+      renderGrid(top10, "results"); // Simulação de resultado com top10
     }
 
     function watch(title) {
