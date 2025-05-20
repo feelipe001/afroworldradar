@@ -34,14 +34,12 @@
       border-radius: 5px;
     }
     .grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
       gap: 12px;
       padding: 10px;
     }
     .card {
-      width: 30%;
       background: #222;
       border-radius: 10px;
       overflow: hidden;
@@ -63,21 +61,12 @@
       margin: 10px;
       border-radius: 10px;
     }
-    .info-box ul {
-      padding-left: 20px;
-      margin-top: 10px;
-    }
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 15px;
+      background: #000;
       font-size: 14px;
       color: #aaa;
-      background: #000;
-    }
-    @media (max-width: 600px) {
-      .card {
-        width: 30%;
-      }
     }
   </style>
 </head>
@@ -90,7 +79,7 @@
   </header>
 
   <div class="info-box">
-    <strong>🔍 Como encontrar o nome do filme no Instagram:</strong>
+    <h3>🔍 <strong>Como encontrar o nome do filme no Instagram:</strong></h3>
     <ul>
       <li>📝 O nome do filme está quase sempre <strong>na legenda</strong> do vídeo;</li>
       <li>📌 Ou <strong>fixado no primeiro comentário</strong> da postagem;</li>
@@ -104,46 +93,46 @@
   <h2 style="text-align:center; margin: 15px 0;">Resultados</h2>
   <div id="results" class="grid"></div>
 
-  <footer>
-    © Todos os direitos reservados - Afroworld
-  </footer>
+  <footer>© Todos os direitos reservados - Afroworld</footer>
 
   <script>
+    const apiKey = 'f32553954ea667a78ba68f4d826126a2';
+
     const top10 = [
-      {
-        title: "Minecraft",
-        img: "https://image.tmdb.org/t/p/w300/6IvjNfD1h7x7k6q2FheMfwxqHoh.jpg"
-      },
-      {
-        title: "Bad Boys",
-        img: "https://image.tmdb.org/t/p/w300/szQ29cS8XogkVQd0UGGSi1wBszA.jpg"
-      },
-      {
-        title: "Venom",
-        img: "https://image.tmdb.org/t/p/w300/qKkFk9HELmABpcPoc1HHZGIxQ5a.jpg"
-      }
+      { title: "Minecraft" },
+      { title: "Bad Boys" },
+      { title: "Venom" }
     ];
 
-    function renderGrid(data, containerId) {
+    async function fetchMovieData(title) {
+      const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&query=${encodeURIComponent(title)}`);
+      const data = await response.json();
+      return data.results[0];
+    }
+
+    async function renderGrid(data, containerId) {
       const container = document.getElementById(containerId);
       container.innerHTML = "";
-      data.forEach(item => {
+      for (const item of data) {
+        const movie = await fetchMovieData(item.title);
+        if (!movie) continue;
+
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
-          <img src="${item.img}" alt="${item.title}" />
-          <button onclick="watch('${item.title}')">Assistir</button>
+          <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}" />
+          <p style="padding: 8px; font-size: 14px;">${movie.title}</p>
+          <button onclick="watch('${movie.title}')">Assistir</button>
         `;
         container.appendChild(card);
-      });
+      }
     }
 
-    function search() {
-      const term = document.getElementById("searchInput").value;
-      if (term.trim() === "") return alert("Digite algo");
-      
-      // Em produção, aqui faria uma chamada real à API
-      renderGrid(top10, "results"); // Simulação de resultado com top10
+    async function search() {
+      const term = document.getElementById("searchInput").value.trim();
+      if (!term) return alert("Digite o nome de um filme.");
+      const result = [{ title: term }];
+      renderGrid(result, "results");
     }
 
     function watch(title) {
