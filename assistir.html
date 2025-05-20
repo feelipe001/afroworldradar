@@ -1,96 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assistir Grátis</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assistir</title>
   <style>
     body {
-      background-color: #121212;
-      color: #ffffff;
+      background: #000;
+      color: white;
       font-family: Arial, sans-serif;
       text-align: center;
+      padding-top: 60px;
+    }
+    #countdown {
+      font-size: 48px;
+      margin-top: 20px;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+    .ad-space {
+      margin: 30px auto;
+      background: #333;
       padding: 20px;
-    }
-
-    h1 {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      font-size: 1.5em;
-      color: #fff;
-    }
-
-    .desc {
-      margin-top: 10px;
-      margin-bottom: 20px;
-      font-size: 1em;
-      color: #ccc;
-    }
-
-    .links {
-      margin: 20px 0;
-    }
-
-    .links a {
-      display: inline-block;
-      background-color: #00c853;
-      color: #fff;
-      padding: 12px 20px;
-      margin: 8px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .banner {
-      border: 2px dashed #888;
-      margin: 20px auto;
-      padding: 30px;
-      max-width: 500px;
-      color: #aaa;
-    }
-
-    .extra {
-      margin-top: 30px;
-    }
-
-    .extra a {
-      color: #4dd0e1;
-      text-decoration: none;
+      border: 2px dashed #666;
+      width: 90%;
+      max-width: 300px;
     }
   </style>
 </head>
 <body>
   <h1>Assista Grátis!</h1>
-  <h2 id="titulo">Carregando título...</h2>
-  <p class="desc">Disponível para Android, iPhone e Smart TV. Aproveite enquanto está no ar!</p>
+  <h2 id="movieTitle">Carregando título...</h2>
+  <p>Aperta o cinto… seu filme vai começar em <span id="countdown">5</span> segundos!</p>
 
-  <div class="links">
-    <a href="https://links.unitvnet.app/IAFLDMW" target="_blank">📱 Assistir grátis no Android</a>
-    <a href="https://wa.me/message/3IY74MCWLWN2B1" target="_blank">💬 Quero assistir no iPhone / TV</a>
-  </div>
-
-  <div class="banner">
+  <div class="ad-space">
     [ Espaço para Anúncio Google / Adsterra ]
   </div>
 
-  <div class="extra">
-    <h3>✨ Conheça também:</h3>
-    <ul style="list-style:none; padding: 0;">
-      <li><a href="https://awinsta.online" target="_blank">AfroInsta — Baixar vídeos do Instagram sem marca d'água</a></li>
-      <li><a href="https://afrowallpapers.site" target="_blank">AfroWallpapers — Fundos de tela afrofuturistas</a></li>
-    </ul>
-  </div>
-
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const title = params.get("title");
-    if (title) {
-      document.getElementById("titulo").innerText = title;
-    }
+    document.getElementById("movieTitle").textContent = localStorage.getItem("movieTitle") || "Filme";
+
+    let seconds = 5;
+    const countdown = document.getElementById("countdown");
+
+    const timer = setInterval(() => {
+      seconds--;
+      countdown.textContent = seconds;
+      if (seconds === 0) {
+        clearInterval(timer);
+        window.location.href = "https://links.unitvnet.app/IAFLDMW"; // URL de conversão
+      }
+    }, 1000);
   </script>
 </body>
 </html>
