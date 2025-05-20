@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -58,16 +57,25 @@
       width: 90%;
       background: #ff5722;
     }
+    .info-box {
+      background: #1c1c1c;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background: black;
+      font-size: 14px;
+      color: #ccc;
+    }
     @media (max-width: 600px) {
       .card {
-        width: 45%;
+        width: 30%;
       }
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #000;
-      color: #888;
     }
   </style>
 </head>
@@ -79,16 +87,38 @@
     <button onclick="search()">Buscar</button>
   </header>
 
+  <div class="info-box">
+    🔍 <strong>Como encontrar o nome do filme no Instagram:</strong><br>
+    📝 O nome do filme está quase sempre <strong>na legenda</strong> do vídeo;<br>
+    📌 Ou <strong>fixado no primeiro comentário</strong> da postagem;<br>
+    💻 Copie o nome e cole na busca acima para ver onde assistir.
+  </div>
+
   <h2 style="text-align:center; margin: 15px 0;">Top 10 Filmes</h2>
   <div id="top10" class="grid"></div>
 
   <h2 style="text-align:center; margin: 15px 0;">Resultados</h2>
   <div id="results" class="grid"></div>
 
-  <footer>&copy; Todos os direitos reservados - Afroworld</footer>
+  <div class="footer">© Todos os direitos reservados - Afroworld</div>
 
   <script>
     const apiKey = "f32553954ea667a78ba68f4d826126a2";
+
+    async function search() {
+      const query = document.getElementById("searchInput").value;
+      if (query.trim() === "") return alert("Digite algo");
+
+      const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&query=${encodeURIComponent(query)}`);
+      const data = await response.json();
+      renderGrid(data.results.slice(0, 9), "results");
+    }
+
+    async function loadTop10() {
+      const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`);
+      const data = await response.json();
+      renderGrid(data.results.slice(0, 10), "top10");
+    }
 
     function renderGrid(data, containerId) {
       const container = document.getElementById(containerId);
@@ -96,34 +126,19 @@
       data.forEach(item => {
         const card = document.createElement("div");
         card.className = "card";
-        const imageUrl = item.poster_path
-          ? `https://image.tmdb.org/t/p/w300${item.poster_path}`
-          : "https://via.placeholder.com/300x450?text=Sem+Imagem";
+        const imgSrc = item.poster_path ? `https://image.tmdb.org/t/p/w300${item.poster_path}` : '';
         card.innerHTML = `
-          <img src="${imageUrl}" alt="${item.title}" />
+          <img src="${imgSrc}" alt="${item.title}" />
+          <p style="padding: 0 5px; font-size: 14px;">${item.title}</p>
           <button onclick="watch('${item.title}')">Assistir</button>
         `;
         container.appendChild(card);
       });
     }
 
-    async function search() {
-      const term = document.getElementById("searchInput").value;
-      if (term.trim() === "") return alert("Digite algo");
-      const response = await fetch(\`https://api.themoviedb.org/3/search/movie?api_key=\${apiKey}&language=pt-BR&query=\${encodeURIComponent(term)}\`);
-      const data = await response.json();
-      renderGrid(data.results, "results");
-    }
-
     function watch(title) {
       localStorage.setItem("movieTitle", title);
       window.location.href = "assistir.html";
-    }
-
-    async function loadTop10() {
-      const response = await fetch(\`https://api.themoviedb.org/3/movie/popular?api_key=\${apiKey}&language=pt-BR&page=1\`);
-      const data = await response.json();
-      renderGrid(data.results.slice(0, 10), "top10");
     }
 
     loadTop10();
