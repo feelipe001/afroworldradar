@@ -91,9 +91,11 @@
       data.forEach(item => {
         const card = document.createElement("div");
         card.className = "card";
-        card.innerHTML = 
-          <img src="${item.img}" alt="${item.title}" />
-          <button onclick="watch('${item.title}')">Assistir</button>
+        card.innerHTML = `
+  <img src="${item.img}" alt="${item.title}" />
+  <button onclick="watch('${item.title}')">Assistir</button>
+`;
+
         ;
         container.appendChild(card);
       });
