@@ -22,14 +22,6 @@
       50% { opacity: 0.4; }
       100% { opacity: 1; }
     }
-    .ad-space {
-      margin: 30px auto;
-      background: #333;
-      padding: 20px;
-      border: 2px dashed #666;
-      width: 90%;
-      max-width: 300px;
-    }
     .descricao {
       margin: 30px auto;
       width: 90%;
@@ -49,35 +41,78 @@
   </style>
 </head>
 <body>
-  <!-- POPUNDER (Aparece só nesta página) -->
+
+<!-- 🔥 POPUNDER -->
 <script type='text/javascript' src='//pl26748268.profitableratecpm.com/a8/03/d3/a803d3d3be65c08d0054132e4e171da9.js'></script>
 
-  <h1>Assista Grátis!</h1>
-  <h2 id="movieTitle">Carregando título...</h2>
-  <p>Esta usando Android?… Baixe o app Unitv e assista gratuitamente em <span id="countdown">5</span> segundos!</p>
+<!-- 🔥 BANNER TOPO -->
+<div style="text-align:center; margin-bottom:20px;">
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'd48c792b96252395239ba0e0622c13dd',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script src="//www.highperformanceformat.com/d48c792b96252395239ba0e0622c13dd/invoke.js"></script>
+</div>
 
+<h1>Assista Grátis!</h1>
+<h2 id="movieTitle">Carregando título...</h2>
+<p>Está usando Android?… Baixe o app Unitv e assista gratuitamente em <span id="countdown">5</span> segundos!</p>
 
-  <div class="descricao">
+<!-- 🔥 BANNER MEIO -->
+<div style="text-align:center; margin: 20px 0;">
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'b46d2fc4c2e60928b9a7ec4750e20586',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script src="//www.highperformanceformat.com/b46d2fc4c2e60928b9a7ec4750e20586/invoke.js"></script>
+</div>
+
+<div class="descricao">
     <p>📲 O download será iniciado para Android.<br>
     Caso esteja usando iPhone ou Smart TV, <strong>feche o download</strong> e clique no botão abaixo para continuar:</p>
     
     <a href="https://wa.me/5524999989882?text=Oi%2C%20vim%20do%20Filme%20Radar%20e%20quero%20conhecer%20o%20Cinema%20Vision%C3%A1rio" class="btn-whatsapp">📺 Assistir no iPhone / TV</a>
-  </div>
+</div>
 
-  <script>
-    document.getElementById("movieTitle").textContent = localStorage.getItem("movieTitle") || "Filme";
+<!-- 🔥 BANNER RODAPÉ -->
+<div style="text-align:center; margin: 30px 0;">
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'd48c792b96252395239ba0e0622c13dd',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script src="//www.highperformanceformat.com/d48c792b96252395239ba0e0622c13dd/invoke.js"></script>
+</div>
 
-    let seconds = 5;
-    const countdown = document.getElementById("countdown");
+<script>
+  document.getElementById("movieTitle").textContent = localStorage.getItem("movieTitle") || "Filme";
 
-    const timer = setInterval(() => {
-      seconds--;
-      countdown.textContent = seconds;
-      if (seconds === 0) {
-        clearInterval(timer);
-        window.location.href = "https://links.unitvnet.app/IAFLDMW"; // Android: redirecionamento para UnitTV
-      }
-    }, 1000);
-  </script>
+  let seconds = 5;
+  const countdown = document.getElementById("countdown");
+
+  const timer = setInterval(() => {
+    seconds--;
+    countdown.textContent = seconds;
+    if (seconds === 0) {
+      clearInterval(timer);
+      window.location.href = "https://links.unitvnet.app/IAFLDMW"; // Android redireciona para UnitTV
+    }
+  }, 1000);
+</script>
+
 </body>
 </html>
